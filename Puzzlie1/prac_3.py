@@ -1,5 +1,18 @@
-
-caps = ['F', 'F', 'B', 'H', 'B', 'F', 'B', 'B', 'B', 'F', 'H', 'F', 'F']
+""" 
+    BIG_ICPC
+    순천향대학교 빅데이터공학과
+    20171483 한태규
+    
+    #------------------------- memo -------------------------#
+    퍼즐로 배우는 알고리즘 with Python
+    
+    Page num : 35
+    Prac : 3
+    #--------------------------------------------------------#
+     
+    email : gksxorb147@gmail.com
+    update : 2021.03.29 00:11
+"""
 
 def pleaseConform(caps):
     
@@ -38,6 +51,9 @@ def pleaseConform(caps):
             else:
                 print ('People in positions', t[0], 'through', t[1], 'flip your caps!')
 
+
 if __name__=="__main__":
+
+    caps = ['F', 'F', 'B', 'H', 'B', 'F', 'B', 'B', 'B', 'F', 'H', 'F', 'F']
 
     pleaseConform(caps)
