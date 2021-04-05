@@ -44,14 +44,16 @@ def pleaseConform(caps):
         if t[2] == flip:
             #Exercise: if t[0] == t[1] change the printing!
             if t[0] == t[1]:
-                print ('People in positions', t[0], 'flip your cap!') ## 코드 추가
+                if intervals[-1] == t or intervals[-2] == t: ## 코드 추가
+                    print ('People at positions', t[0], 'flip your cap!') ## 코드 추가
+                else:
+                    print ('People in positions', t[0], 'flip your cap!') ## 코드 추가
             else:
                 print ('People in positions', t[0], 'through', t[1], 'flip your caps!')
-    
-    print(intervals)
+
 
 if __name__=="__main__":
 
-    caps = ['H','F', 'F', 'B', 'H', 'B', 'F', 'B', 'B','H', 'B', 'F', 'H', 'H', 'F', 'F']
+    caps = ['F', 'F', 'B', 'H', 'B', 'F', 'B', 'B', 'B', 'F', 'H', 'F', 'F']
 
     pleaseConform(caps)

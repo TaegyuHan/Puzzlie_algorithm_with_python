@@ -67,5 +67,5 @@ def decoding(str_text):
 
 
 if __name__=="__main__":
-    encoding('BWWWWWBWWWwwwW')
-    decoding('11B5W1B4W')
+    encoding('BWWWWWBWWWW')
+    decoding('1B5W1B4W')
