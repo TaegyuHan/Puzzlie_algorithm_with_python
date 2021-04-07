@@ -138,6 +138,7 @@ def find_party_star(sched):
     return go_time, meet_star
 
 
+
 if __name__=="__main__":
     
     sched = [ (6, 8), (6, 12), (6, 7),

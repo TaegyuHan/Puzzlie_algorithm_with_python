@@ -36,9 +36,7 @@ def schedule_table(sched):
             시간표 반환
             { 시간 : 연예인 인원 }
 
-    ex ) : { 6.0: 3, 6.5: 3, 7.0: 4, 7.5: 4,
-             8.0: 4, 8.5: 4, 9.0: 5, 9.5: 5,
-             10.0: 4, 10.5: 4, 11.0: 4, 11.5: 4, 12.0: 0 }
+    ex ) : 
 
     """    
 
@@ -122,7 +120,8 @@ def find_party_time(sched, srt_t, end_t):
 
     ## 스케줄 table 가져오기
     schedule = schedule_table(sched)
-    
+    print(schedule)
+
     # print(sched)
     # print(schedule)
 
@@ -147,10 +146,8 @@ def find_party_time(sched, srt_t, end_t):
     return go_time, meet_star
 
 
-
-
 if __name__=="__main__":
-    
+
     sched = [ (6, 8), (6, 12), (6, 7),
               (7, 8), (7, 10), (8, 9),
               (8, 10), (9, 12),(9, 10),
@@ -160,7 +157,6 @@ if __name__=="__main__":
                (7.0, 8.0, 2), (7.5, 10.0, 3), (8.0, 9.0, 2),
                (8.0, 10.0, 1), (9.0, 12.0, 2), (9.5, 10.0, 4),
                (10.0, 11.0, 2), (10.0, 12.0, 3), (11.0, 12.0, 7) ]
-
     
     find_party_time(sched2, 1.0, 12.0)
 

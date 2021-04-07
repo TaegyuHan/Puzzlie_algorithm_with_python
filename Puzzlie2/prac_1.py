@@ -57,6 +57,7 @@ def schedule_table(sched):
 
     ## 연예인이 처음오는시간
     ## 마지막에 가는 시간 찾기
+    # (6, 8)
     for in_t, out_t in sched:
         # 첫번째 시간 찾기
         if fst > in_t:
@@ -72,19 +73,28 @@ def schedule_table(sched):
         sched_updata = (fst + i*0.5)
         i += 1
         sched_table[sched_updata] = 0
-        # print(fst + i*0.5)
+        #print(fst + i*0.5)
+    #print(sched_table)
+
         
     # 시간표 채워 넣기
     for srt_t, end_t in sched:
-        # print(srt_t, end_t)
+        # 6.5 12.0
+        print(srt_t, end_t)
         i = 0
         sched_updata = 0
+        # 11.5 > 0
         while (end_t - 0.5) > sched_updata:
+            ## 7.0
             sched_updata = (srt_t + i*0.5)
+            # 7.0
             # print(sched_updata)
             i += 1
+            # sched_table[7.0] 
             sched_table[sched_updata] += 1
-            
+
+    print(sched_table)
+
     # print(sched_table)
     return sched_table
 
@@ -122,12 +132,18 @@ def find_party_time(sched, srt_t, end_t):
         # 빈 시간표 table 만들기
     i = 0
     sched_time = 0
+    # 1.0, 12.0
+    # 11.5 > 0
     while (end_t - 0.5) > sched_time:
+        # 1.0
         sched_time = (srt_t + i*0.5)
         i += 1
-        try:
+        try:   # 1.0 schedule[6.0]
+                # 0 < 1
             if meet_star < schedule[sched_time]:
+                # 1
                 meet_star = schedule[sched_time]
+                # 6.0
                 go_time = sched_time
         except:
             pass
@@ -139,8 +155,6 @@ def find_party_time(sched, srt_t, end_t):
     
     go_time = int(go_time)
     return go_time, meet_star
-
-
 
 
 if __name__=="__main__":
