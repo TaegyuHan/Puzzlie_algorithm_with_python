@@ -15,6 +15,7 @@
     update : 2021.04.28 22:56
 """
 import random
+
 # 인코딩 하기
 def incode(hidden_card, card_info):
     
@@ -57,7 +58,7 @@ def incode(hidden_card, card_info):
             card_info[no_hidden[n]]['state2'] = card_state2[n]
 
     elif cnumbers == 2:
-        card_state1 = [1, 0, 0] # 앞, 앞, 앞
+        card_state1 = [1, 0, 0] # 뒤, 앞, 앞
         card_state2 = [0, 0, 0] # 세로, 세로, 세로
         for n in range(len(no_hidden)):
             card_info[no_hidden[n]]['state1'] = card_state1[n]
@@ -142,7 +143,7 @@ def incode(hidden_card, card_info):
 
     elif cnumbers == 13:
         card_state1 = [0, 0, 0] # 앞, 앞, 앞
-        card_state2 = [0, 1, 1] # 세로, 세로, 세로
+        card_state2 = [0, 1, 1] # 세로, 가로, 가로
         for n in range(len(no_hidden)):
             card_info[no_hidden[n]]['state1'] = card_state1[n]
             card_info[no_hidden[n]]['state2'] = card_state2[n]
@@ -175,7 +176,9 @@ def ComputerAssistant():
         
         index_num = card_info[card_name]['deck_index_num']
 
-    # print('card_info :', card_info)
+    print('card_info :', card_info)
+    # for k, v in card_info.items():
+    #     print(k, v)
 
     # hidden 카드 뽑기
     hidden_card = random.sample(choice_list, 1)
@@ -183,9 +186,10 @@ def ComputerAssistant():
 
     # 인코딩 하기
     card_info = incode(hidden_card, card_info)
+    print('card_info :', card_info)
 
-    for key, value in card_info.items():
-        print(key, value)
+    # for key, value in card_info.items():
+    #    print(key, value)
 
     # 카드 표현하기
     for key, value in card_info.items():

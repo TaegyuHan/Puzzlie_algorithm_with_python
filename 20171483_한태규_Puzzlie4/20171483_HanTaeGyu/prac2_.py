@@ -24,10 +24,11 @@ def noConflicts(board, current):
 def EightQueens(input_board, n=8):
   
     board = [-1] * n
+    print(board)
     queens_num = n - input_board.count(-1)
-    
-
     print(queens_num)
+
+    #print(queens_num)
     for i in range(n):
 
         # i = 0, 1, 2, 3, 4, 5, 6, 7
@@ -65,6 +66,7 @@ def EightQueens(input_board, n=8):
                                         # print(board)
 
                                         # 추가
+                                        print(board)
                                         queens_position_num = 0
                                         for r in range(n):
                                             if board[r] == input_board[r]:

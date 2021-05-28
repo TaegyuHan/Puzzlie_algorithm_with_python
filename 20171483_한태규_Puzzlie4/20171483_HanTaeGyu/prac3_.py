@@ -38,11 +38,12 @@ def FourQueens(n=4):
         for_loop(num, board)
         board[i][0] = 0
 
-# 무한 loop 문
+# loop 문
 def for_loop(num, board, n=4):
+
     if num==4:
         show_board(board)
-        num -=1
+        num -= 1
         return
 
     for i in range(n):
@@ -50,6 +51,8 @@ def for_loop(num, board, n=4):
         if noConflicts(board, num, i, n):
             for_loop(num+1, board)
         board[i][num] = 0
+        
+    return
 
 def show_board(board):
     
@@ -58,6 +61,7 @@ def show_board(board):
             print(i, end=' ')
         print()
     print()
+
 
 if __name__ == '__main__':
     FourQueens()

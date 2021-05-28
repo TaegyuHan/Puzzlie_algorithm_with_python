@@ -55,7 +55,8 @@ def outputNext3Cards(code, ind):
     elif code == 4:
         second, third, fourth = ind[1], ind[2], ind[0]
     elif code == 5:
-        second, third, fourth = ind[2], ind[0], ind[1]
+        second, third,
+         fourth = ind[2], ind[0], ind[1]
     else:
         second, third, fourth = ind[2], ind[1], ind[0]
 
