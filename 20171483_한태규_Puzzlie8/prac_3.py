@@ -51,23 +51,45 @@ def check_like_high(guestList, dislikePairs):
             max_like_sum = tmp_like_sum
             max_pairs = pairs
 
-    return max_pairs
+    # 1쌍 찾기
+    pair1 = (max_pairs[0], guestListDict[max_pairs[0]])
+    pair2 = (max_pairs[1], guestListDict[max_pairs[1]])
 
+    # 1쌍 제거
+    del guestList[guestList.index(pair1)]
+    del guestList[guestList.index(pair2)]
 
-def pair_del(max_pairs, dislikePairs):
-
-    print(dislikePairs)
-
-    i = 0
+    # 1쌍에 연결되어 제거되는 사람 찾기
+    order_max = [pair1, pair2]
+    delete_set = set() # 제거 될 사람 저장 공간
     for pairs in dislikePairs:
-        for man in max_pairs:
-            if(man == pairs[0] or man == pairs[1]):
-                print(man)
-                print(pairs)
-                del dislikePairs[dislikePairs.index(pairs)]
-                break
+        for str in order_max:
+            if str[0] in pairs:
+                delete_set.update(pairs)
 
-    print(dislikePairs)
+    # guestList 에서 제거하기
+    # 1쌍에 연결 안된 사람 추출
+    guestList = [man for man in guestList if man[0] not in delete_set]
+    # print(guestList)
+    print(dislikePairs) # dislikePairs 제거 해야함 
+
+    return guestList, order_max
+
+
+def choose_another_friend(guestList, dislikePairs):
+
+    # 가장 큰 값 찾기
+    max_index = 0
+    for man in guestList:
+        if max_index < man[1]:
+            max_index = guestList.index(man)
+
+    # 가장 큰값 꺼내기
+    max_friend = guestList.pop(max_index-1)
+    # print(max_friend)
+
+    # print(guestList, dislikePairs)
+
 
 def IniteDinnerOptimized(guestList, dislikePairs):
 
@@ -78,34 +100,34 @@ def IniteDinnerOptimized(guestList, dislikePairs):
     # 친밀 도가 가장 높은
     # 서로 싫어하는 1쌍 추출
     # 및 다른 연결 쌍 제거
-    max_pairs = check_like_high(guestList, dislikePairs)
-    # print(max_pairs)
+    guestList, max_pairs = \
+        check_like_high(guestList, dislikePairs)
 
-    # 친밀도 가장 높은 1쌍 과 연결된
-    # 쌍 제거
-    # ######< 이부분 해결해야 한다.
-    pair_del(max_pairs, dislikePairs)
+    # print(guestList, dislikePairs, max_pairs)
 
+    # 친밀도가 가장 높은 1쌍과 연결된 다른 사람 제거
+    choose_another_friend(guestList, dislikePairs)
 
     # print(exception_people, guestList)
     n, invite = len(guestList), []
-
-    for i in range(2**n):
-        Combination = []
-        num = i
-        for j in range(n):
-            if (num % 2 == 1):
-                Combination = [guestList[n-1-j]] + Combination
-            num = num // 2
-        good = True
-
-        for j in dislikePairs:
-            if j[0] in Combination and j[1] in Combination:
-                good = False
-
-        if good:
-            if len(Combination) > len(invite):
-                invite = Combination
+    invite += max_pairs
+    invite += exception_people
+    # for i in range(2**n):
+    #     Combination = []
+    #     num = i
+    #     for j in range(n):
+    #         if (num % 2 == 1):
+    #             Combination = [guestList[n-1-j]] + Combination
+    #         num = num // 2
+    #     good = True
+    #
+    #     for j in dislikePairs:
+    #         if j[0] in Combination and j[1] in Combination:
+    #             good = False
+    #
+    #     if good:
+    #         if len(Combination) > len(invite):
+    #             invite = Combination
 
 
     # 제외 했던 사람 추가
@@ -122,5 +144,6 @@ if __name__ == '__main__':
                      
     IniteDinnerOptimized(LargeGustList, LargeDislikes)
     # 정답 : Optimun Solution:  ['Alice', 'Eve', 'Cleo', 'Don']
+
 
 
