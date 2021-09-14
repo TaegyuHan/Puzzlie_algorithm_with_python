@@ -33,6 +33,19 @@ def check_list(guestList, dislikePairs):
 
 
 def check_like_high(guestList, dislikePairs):
+    """ 서로 싫어 하는 1쌍 중에서 친밀도가 가장
+        높은 1쌍을 찾고 그 쌍과 연결되어 있는
+        사람을 제거 합니다.
+
+    Args:
+        guestList ([list]]): [손님 리스트]
+        dislikePairs ([list]): [싫어하는 쌍]
+
+    Returns:
+        guestList ([list]]): [1쌍제거, 1쌍과 연결되어있는 사람 제거]
+        dislikePairs ([list]]): [1쌍과 연결 안되어 있는 서로 싫어하는 쌍]
+        order_max  ([list]]): [1쌍 중에서 친밀도가 가장 높은 1쌍]
+    """
 
     # print(guestList, dislikePairs)
     max_pairs = [] # 애정도가 가장 높은 1쌍
@@ -62,77 +75,101 @@ def check_like_high(guestList, dislikePairs):
     # 1쌍에 연결되어 제거되는 사람 찾기
     order_max = [pair1, pair2]
     delete_set = set() # 제거 될 사람 저장 공간
+    no_delete_set = []
     for pairs in dislikePairs:
-        for str in order_max:
-            if str[0] in pairs:
-                delete_set.update(pairs)
+        if pair1[0] not in pairs and\
+           pair2[0] not in pairs:
+           no_delete_set.append(pairs)
+        
+        if pair1[0] in pairs or\
+           pair2[0] in pairs:
+           delete_set.update(pairs)
+           
+
+    # print(delete_set)
+    dislikePairs = no_delete_set
+    # print(no_delete_set)
 
     # guestList 에서 제거하기
     # 1쌍에 연결 안된 사람 추출
     guestList = [man for man in guestList if man[0] not in delete_set]
     # print(guestList)
-    print(dislikePairs) # dislikePairs 제거 해야함 
 
-    return guestList, order_max
+    # print(order_max)
+    # print(dislikePairs) # dislikePairs 제거 해야함 
+    return guestList, dislikePairs, order_max 
 
 
 def choose_another_friend(guestList, dislikePairs):
+    """ 남은 사람중에서 가장 친밀도가 높은 사람을 선택하고
+        그 선택된 사람과 연결되어 있는 사람들을 모두 제거
 
-    # 가장 큰 값 찾기
-    max_index = 0
+    Args:
+        guestList ([list]]): [손님 리스트]
+        dislikePairs ([list]): [싫어하는 쌍]
+
+    Returns:
+        max_man ([list]]): [쌍이 아닌 혼자인 가장 친밀도가 높은사람]
+    """
+
+    if len(guestList) <= 0:
+        return []
+
+    # 남은 사람중에 가장 친한사람 1명
+    max = 0
     for man in guestList:
-        if max_index < man[1]:
-            max_index = guestList.index(man)
+        if man[1] > max:
+            max = man[1]
+            max_man = man
 
-    # 가장 큰값 꺼내기
-    max_friend = guestList.pop(max_index-1)
-    # print(max_friend)
+    # print(max_man)
+
+    delete_set = set()
+    # 그 한명과 연결된 사람 찾기
+    for pairs in dislikePairs:
+        if max_man[0] in pairs or\
+           max_man[0] in pairs:
+           delete_set.update(pairs)
+
+    # 연결된 사람 제거
+    guestList = [man for man in guestList if man[0] not in delete_set]
 
     # print(guestList, dislikePairs)
 
+    return [max_man] + choose_another_friend(guestList, dislikePairs)
+
+    
+
 
 def IniteDinnerOptimized(guestList, dislikePairs):
+
 
     # 싫어하는 사람이 없는 사람 제외
     exception_people, guestList = \
         check_list(guestList, dislikePairs)
 
-    # 친밀 도가 가장 높은
-    # 서로 싫어하는 1쌍 추출
-    # 및 다른 연결 쌍 제거
-    guestList, max_pairs = \
+    # 친밀 도가 가장 높은 서로 싫어하는 1쌍 추출
+    # 위의 1쌍과 연결된 다른 인원 제거
+    guestList, dislikePairs, max_pairs = \
         check_like_high(guestList, dislikePairs)
-
     # print(guestList, dislikePairs, max_pairs)
 
-    # 친밀도가 가장 높은 1쌍과 연결된 다른 사람 제거
-    choose_another_friend(guestList, dislikePairs)
+    # 나머지 가장 큰 값 1개씩 찾기
+    other_friend = choose_another_friend(guestList, dislikePairs)
+    # print(other_friend)
 
-    # print(exception_people, guestList)
-    n, invite = len(guestList), []
+    invite = []
     invite += max_pairs
     invite += exception_people
-    # for i in range(2**n):
-    #     Combination = []
-    #     num = i
-    #     for j in range(n):
-    #         if (num % 2 == 1):
-    #             Combination = [guestList[n-1-j]] + Combination
-    #         num = num // 2
-    #     good = True
-    #
-    #     for j in dislikePairs:
-    #         if j[0] in Combination and j[1] in Combination:
-    #             good = False
-    #
-    #     if good:
-    #         if len(Combination) > len(invite):
-    #             invite = Combination
+    invite += other_friend
+    
+    like_sum = 0
+    for mas in invite:
+        like_sum += mas[1]
 
-
-    # 제외 했던 사람 추가
+    # 결과
     print("Optimun Solution: ", invite)
-
+    print("Weight is : {}".format(like_sum))
 
 if __name__ == '__main__':
     LargeDislikes = [['B','C'],['C','D'],['D','E'],['F','G'],
@@ -143,7 +180,6 @@ if __name__ == '__main__':
                      ('G',2),('H',1),('I',3)]
                      
     IniteDinnerOptimized(LargeGustList, LargeDislikes)
-    # 정답 : Optimun Solution:  ['Alice', 'Eve', 'Cleo', 'Don']
-
-
-
+    # 정답 v
+    # Optimun Solution:  [('F', 4), ('I', 3), ('A', 2), ('C', 3), ('E', 1)]
+    # Weight is : 13

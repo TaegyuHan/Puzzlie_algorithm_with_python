@@ -42,14 +42,14 @@ def Combinations(n, guestList):
       for j in range(n):
         # i 가 홀수 인 경우
         if num % 2 == 1:
-          # print("nun : ", num)
-          # print("j : ", j)
-          # print("cList1 : ",cList)
-          # print("guestList[{0} - 1 - {1}] : {2}".format(n, j, guestList[n - 1 - j]))
+          print("nun : ", num)
+          print("j : ", j)
+          print("cList1 : ",cList)
+          print("guestList[{0} - 1 - {1}] : {2}".format(n, j, guestList[n - 1 - j]))
           cList = [guestList[n - 1 - j]] + cList
-          # print("cList2 : ", cList)
+          print("cList2 : ", cList)
         num = num//2
-        # print("nun : ", num)
+        print("nun : ", num)
       allCombL.append(cList)
     
     return allCombL
@@ -85,13 +85,10 @@ def InviteDinner(guestList, dislikePairs):
 
 if __name__ == '__main__':
     dislikePairs = [['Alice', 'Bob'], ['Alice', 'Eve']]
-    guestList = ["Alice", "Bob", "Cleo", "Don", "Eve"]
-    InviteDinner(guestList, dislikePairs)
+    questList = ["Alice", "Bob", "Cleo", "Don", "Eve"]
+    InviteDinner(questList, dislikePairs)
 
-    LargeDislikes = [['B','C'],['C','D'],['D','E'],['F','G'],
-                     ['F','H'],['F','I'],['G','H']]
-    LargeGustList = ['A','B','C','D','E','F','G','H','I']
-    InviteDinner(LargeGustList, LargeDislikes)
+    LargeDislikes
 
 
 
