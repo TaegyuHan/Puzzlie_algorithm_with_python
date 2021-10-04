@@ -95,19 +95,24 @@ def Hire4Show(candList: list, candTalents: list, talentList: list):
     candList, candTalents = check_overlap_talent(candList, candTalents)
 
     n = len(candList)
+    print(n)
     hire = candList[:]
+    
+    # print(candList)
 
     # 모든 경우의 수
     for i in range(2**n):
         Combination = []
         num = i
+        print(f"num : {num}")
 
         # 조합 뽑기
         for j in range(n):
             if (num % 2 == 1):
+                print(f"{num} % 2 == 1 : {num % 2 == 1}")
                 Combination = [candList[n-1-j]] + Combination
             num = num // 2
-
+            
         # 모든 재능 만족하는지 확인
         if Good(Combination, candList, candTalents, talentList):
             if len(hire) > len(Combination):
