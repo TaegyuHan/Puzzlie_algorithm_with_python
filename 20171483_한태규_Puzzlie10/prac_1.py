@@ -52,7 +52,6 @@ def show_board(board, N):
 def nQueens(N):
     board = [-1] * N
     rQueens(board, 0, N)
-    # print(board)
     show_board(board, N)
 
 

@@ -25,8 +25,12 @@ def rQueens(board, current, size, location_index):
         return True
     else:
         for i in range(size):
+            # --------------------- #
+            # 추가 부분
             if current not in location_index:
                 board[current] = i
+            # --------------------- #
+
             if noConflicts(board, current):
                 found = rQueens(board, current + 1, size, location_index)
                 if found:
@@ -59,10 +63,14 @@ def location(board):
                 if num != -1]
 
 def nQueens():
+    # --------------------- #
+    # 추가 부분
     board = [-1, -1, 4, -1, -1, -1, -1, 0, -1, 5]
     N = len(board)
     location_index = location(board)
     print(location_index)
+    # --------------------- #
+
     rQueens(board, 0, N, location_index)
     show_board(board, N)
 
